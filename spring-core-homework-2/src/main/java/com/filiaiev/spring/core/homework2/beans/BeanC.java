@@ -1,10 +1,10 @@
 package com.filiaiev.spring.core.homework2.beans;
 
-import com.filiaiev.spring.core.homework2.interfaces.PostProcessible;
+import com.filiaiev.spring.core.homework2.interfaces.LifecycleControllable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-public class BeanC extends AbstractBean implements PostProcessible {
+public class BeanC extends AbstractBean implements LifecycleControllable {
     public BeanC(){
         System.out.println("BeanC constructor");
     }

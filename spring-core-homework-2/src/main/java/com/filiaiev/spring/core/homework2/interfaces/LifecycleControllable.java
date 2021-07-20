@@ -1,6 +1,6 @@
 package com.filiaiev.spring.core.homework2.interfaces;
 
-public interface PostProcessible {
+public interface LifecycleControllable {
     default void initMethod(){
         System.out.println(this.getClass().getSimpleName() + " init method");
     };
