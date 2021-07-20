@@ -11,3 +11,4 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan(value = {"com.filiaiev.spring.core.homework2.beans"})
 public class Config1 {
 }
+
