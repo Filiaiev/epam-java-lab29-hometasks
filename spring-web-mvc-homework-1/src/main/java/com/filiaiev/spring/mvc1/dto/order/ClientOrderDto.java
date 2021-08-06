@@ -1,38 +1,32 @@
-package com.filiaiev.spring.mvc1.model;
+package com.filiaiev.spring.mvc1.dto.order;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.filiaiev.spring.mvc1.dto.EmployeePersonalsDto;
 import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
+import com.filiaiev.spring.mvc1.model.OrderStatus;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
 import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@Entity(name = "order_headers")
 @Data
-public class Order {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ClientOrderDto {
 
     @Null(message = "You can`t change order id", groups = OnOrderManagerUpdate.class)
     private Integer id;
 
-    @OneToOne
-    @Null(message = "You can`t change client id", groups = OnOrderManagerUpdate.class)
-    private Client client;
-
-    @OneToOne
-    @JoinColumn(name = "worker_id")
-    private Employee employee;
+    private EmployeePersonalsDto employee;
 
     @Null(message = "You can`t change order date", groups = OnOrderManagerUpdate.class)
-    @CreationTimestamp
     private Timestamp orderDate;
 
+    @Null(message = "You can`t change complete date", groups = OnOrderManagerUpdate.class)
     private Timestamp completeDate;
 
     private BigDecimal cost;
@@ -43,10 +37,8 @@ public class Order {
     @Null(message = "You can`t change order description", groups = OnOrderManagerUpdate.class)
     private String description;
 
-    @Enumerated(value = EnumType.STRING)
-    private OrderStatus status = OrderStatus.CREATED;
+    private OrderStatus status;
 
-    @Transient
-//    @JsonIgnore
-    private String statusName;
+    @Null(message = "You can`t change order status name", groups = OnOrderManagerUpdate.class)
+    private String statusLocalized;
 }
