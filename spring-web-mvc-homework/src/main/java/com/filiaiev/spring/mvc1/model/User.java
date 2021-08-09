@@ -25,6 +25,7 @@ public class User {
     private Person person;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(columnDefinition = "varchar(20) default 'CLIENT'", length = 20, nullable = false)
-    private Role role = Role.CLIENT;
+    @Column(columnDefinition = "varchar(20) default 'ROLE_CLIENT'",
+            length = 20, nullable = false)
+    private Role role = Role.ROLE_CLIENT;
 }

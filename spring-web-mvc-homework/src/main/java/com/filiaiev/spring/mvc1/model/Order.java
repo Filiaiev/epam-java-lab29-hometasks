@@ -1,13 +1,9 @@
 package com.filiaiev.spring.mvc1.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
-import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 

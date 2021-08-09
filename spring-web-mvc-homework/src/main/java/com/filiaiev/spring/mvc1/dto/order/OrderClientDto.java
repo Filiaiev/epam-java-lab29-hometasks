@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.filiaiev.spring.mvc1.dto.employee.EmployeeShortDto;
 import com.filiaiev.spring.mvc1.dto.group.OnClientOrderCreate;
-import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
 import com.filiaiev.spring.mvc1.model.OrderStatus;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 import java.sql.Timestamp;

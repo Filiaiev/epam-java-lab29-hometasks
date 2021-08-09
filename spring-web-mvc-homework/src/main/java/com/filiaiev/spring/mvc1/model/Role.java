@@ -1,7 +1,7 @@
 package com.filiaiev.spring.mvc1.model;
 
 public enum Role {
-    CLIENT,
-    MANAGER,
-    REPAIRER;
+    ROLE_CLIENT,
+    ROLE_MANAGER,
+    ROLE_REPAIRER;
 }

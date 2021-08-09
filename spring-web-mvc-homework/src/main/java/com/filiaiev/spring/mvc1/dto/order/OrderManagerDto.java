@@ -2,7 +2,6 @@ package com.filiaiev.spring.mvc1.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.filiaiev.spring.mvc1.dto.client.ClientShortDto;
 import com.filiaiev.spring.mvc1.dto.employee.EmployeeShortDto;
 import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;

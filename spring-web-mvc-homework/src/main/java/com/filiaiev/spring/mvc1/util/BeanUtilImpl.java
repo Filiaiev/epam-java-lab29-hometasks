@@ -4,9 +4,7 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import java.beans.FeatureDescriptor;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 public class BeanUtilImpl {
 

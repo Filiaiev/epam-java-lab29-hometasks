@@ -13,19 +13,15 @@ import com.filiaiev.spring.mvc1.model.Client;
 import com.filiaiev.spring.mvc1.model.Order;
 import com.filiaiev.spring.mvc1.repository.ClientRepository;
 import com.filiaiev.spring.mvc1.repository.OrderRepository;
-import com.filiaiev.spring.mvc1.util.BeanUtilImpl;
 import com.filiaiev.spring.mvc1.util.mapper.ClientMapper;
 import com.filiaiev.spring.mvc1.util.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

@@ -10,9 +10,12 @@
 
     INSERT INTO users(email, login, password, person_id)
     VALUES ('furnace@gmail.com', 'susundron', '2002vlad', 1),
-           ('sandora@gmail.com', 'sandora', 'sasha222', 2),
-           ('komar@gmail.com', 'koma', 'koma111', 3),
-           ('rab@gmail.com', 'rab', 'rab222', 4);
+           ('sandora@gmail.com', 'sandora', 'sasha222', 2);
+
+
+    INSERT INTO users(email, login, password, person_id, role)
+    VALUES  ('komar@gmail.com', 'koma', 'koma111', 3, 'ROLE_MANAGER'),
+            ('rab@gmail.com', 'rab', 'rab222', 4, 'ROLE_REPAIRER');
 
 -- Clients init
 
