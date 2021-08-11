@@ -1,6 +1,7 @@
 package com.filiaiev.spring.mvc1.dto.employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
 import com.filiaiev.spring.mvc1.dto.user.UserShortDto;
 import lombok.AllArgsConstructor;

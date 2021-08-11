@@ -34,7 +34,7 @@
     VALUES
             (2, NULL, NULL, 5000, NULL, 'Test order 2', 'IN_WORK');
 
---- Without status
+--- With default status
 
     INSERT INTO order_headers(client_id, worker_id, complete_date,
                               cost, comment, description)

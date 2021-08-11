@@ -8,7 +8,6 @@ import com.filiaiev.spring.mvc1.dto.client.ClientDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderManagerDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
 import com.filiaiev.spring.mvc1.exception.UserNotFoundException;
-import com.filiaiev.spring.mvc1.exception.order.OrderNotFoundException;
 import com.filiaiev.spring.mvc1.model.Client;
 import com.filiaiev.spring.mvc1.model.Order;
 import com.filiaiev.spring.mvc1.repository.ClientRepository;
@@ -19,7 +18,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +33,9 @@ public class ManagerService {
 
     private final OrderRepository orderRepository;
     private final ClientRepository clientRepository;
+
+    private final EntityManagerFactory entityManagerFactory;
+    private final EntityManager entityManager;
 
     private ObjectMapper objectMapper;
 
@@ -52,22 +57,19 @@ public class ManagerService {
                 .collect(Collectors.toList());
     }
 
-     /*
-        This method communicate with DB 3 times
-        TODO: Try to optimize this process in future
-        1 - Read order to be changed
-        2 - Rewrite this order
-        3 - Read updated order
-            (to get changes wired by DB like employee user info)
-     */
+    // TODO: fix update issue
+    // Закоментований варіант - робочий
+    @Transactional
     public ManagerOrderModel updateOrder(int id, OrderManagerDto order) {
-        Order repoOrder = orderRepository.findById(id)
-                .orElseThrow(OrderNotFoundException::new);
+        Order repoOrder = orderRepository.getOne(id);
+//        EntityManager entityManager1 = entityManagerFactory.createEntityManager();
 
         try {
-            orderRepository.save(objectMapper.updateValue(repoOrder, order));
-            return managerOrderAssembler.toModel(
-                    OrderMapper.INSTANCE.toOrderManager(orderRepository.getOne(id)));
+//            Order merged = entityManager1.merge(objectMapper.updateValue(repoOrder, order));
+            Order merged = orderRepository.save(objectMapper.updateValue(repoOrder, order));
+            return managerOrderAssembler
+                    .toModel(OrderMapper.INSTANCE.toOrderManager(merged));
+
         } catch (JsonMappingException e) {
             log.error("Json mapping exception", e);
             throw new RuntimeException("Json mapping exception");

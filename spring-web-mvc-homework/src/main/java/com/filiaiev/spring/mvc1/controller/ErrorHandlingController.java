@@ -7,6 +7,7 @@ import com.filiaiev.spring.mvc1.exception.UserAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +23,13 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class ErrorHandlingController {
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorInfo handleException(Exception ex) {
+        log.error(ex.getClass().getSimpleName() + " invoked. {}", ex.getMessage(), ex);
+        return new ErrorInfo(ex.getMessage(), ErrorType.FATAL_ERROR, LocalDateTime.now());
+    }
 
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(code = HttpStatus.CONFLICT)
