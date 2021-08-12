@@ -14,8 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Api(tags = "Manager API")
 //@RequestMapping("/api/v1/manager")
@@ -26,7 +28,9 @@ public interface ManagerApi {
     @ApiOperation("Get orders")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping({"/orders/{params}", "/orders"})
-    List<OrderShortDto> getOrders(@MatrixVariable(pathVar = "params", required = false) Map<String, String> params);
+    List<OrderShortDto> getOrders(
+            @RequestParam(required = false, defaultValue = "0") @Min(1) int page,
+            @RequestParam(required = false, defaultValue = "order_date") String sort);
 
     @ApiImplicitParam(name = "id", required = true, paramType = "path", value = "Order id to get")
     @ApiOperation("Get order")
@@ -48,7 +52,7 @@ public interface ManagerApi {
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/client/{id}")
     ClientDto updateClientCash(@PathVariable int id,
-                               @RequestBody CashWrapper cash);
+                               @Validated @RequestBody CashWrapper cash);
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, paramType = "path", value = "Order id to update"),

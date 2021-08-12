@@ -13,5 +13,6 @@ public class Employee {
     private int id;
 
     @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

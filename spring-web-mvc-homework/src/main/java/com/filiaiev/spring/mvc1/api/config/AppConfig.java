@@ -1,5 +1,6 @@
 package com.filiaiev.spring.mvc1.api.config;
 
+import ch.qos.logback.core.db.DataSourceConnectionSource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -8,6 +9,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
@@ -18,10 +23,24 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.util.UrlPathHelper;
 
+import javax.sql.DataSource;
+import java.sql.Driver;
 import java.util.Locale;
 
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
+
+     /*
+        Gives ability to check if we in transaction block or no
+        using TransactionSynchronizationManager#isActualTransactionActive
+     */
+    @Bean
+    public PlatformTransactionManager transactionManager() throws ClassNotFoundException {
+        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+        dataSource.setDriverClass((Class<? extends Driver>) Class.forName("org.h2.Driver"));
+        dataSource.setUrl("jdbc:h2:mem:");
+        return new DataSourceTransactionManager(dataSource);
+    }
 
     @Bean
     public LocaleResolver localeResolver() {

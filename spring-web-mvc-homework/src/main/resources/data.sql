@@ -34,11 +34,17 @@
     VALUES
             (2, NULL, NULL, 5000, NULL, 'Test order 2', 'IN_WORK');
 
---- With default status
+    --- With default status
 
     INSERT INTO order_headers(client_id, worker_id, complete_date,
                               cost, comment, description)
     VALUES
-    (1, 1, NULL, 11500, NULL, 'Test order');
+    (1, 1, NULL, 11500, NULL, 'Test order'),
+    (1, 2, NULL, NULL, NULL, '3 order');
+
+    --- Pure client creation
+
+    INSERT INTO order_headers(client_id, description)
+    VALUES(2, '4 order');
 
 -- Roles insert

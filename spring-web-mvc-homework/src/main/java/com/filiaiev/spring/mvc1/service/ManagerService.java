@@ -8,16 +8,23 @@ import com.filiaiev.spring.mvc1.dto.client.ClientDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderManagerDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
 import com.filiaiev.spring.mvc1.exception.UserNotFoundException;
+import com.filiaiev.spring.mvc1.exception.order.OrderUpdateException;
 import com.filiaiev.spring.mvc1.model.Client;
 import com.filiaiev.spring.mvc1.model.Order;
 import com.filiaiev.spring.mvc1.repository.ClientRepository;
 import com.filiaiev.spring.mvc1.repository.OrderRepository;
+import com.filiaiev.spring.mvc1.repository.impl.OrderRepositoryImpl;
 import com.filiaiev.spring.mvc1.util.mapper.ClientMapper;
 import com.filiaiev.spring.mvc1.util.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -29,14 +36,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@EnableTransactionManagement
+@Transactional
 public class ManagerService {
 
     private final OrderRepository orderRepository;
     private final ClientRepository clientRepository;
 
     private final EntityManagerFactory entityManagerFactory;
-    private final EntityManager entityManager;
-
     private ObjectMapper objectMapper;
 
     private final ManagerOrderAssembler managerOrderAssembler;
@@ -51,28 +58,33 @@ public class ManagerService {
                 .toModel(OrderMapper.INSTANCE.toOrderManager(orderRepository.getOne(id)));
     }
 
-    public List<OrderShortDto> getOrderList() {
-        return orderRepository.findAll().stream()
+    // TODO: If pageNo greater than all pages, return first page
+    public List<OrderShortDto> getOrderList(int pageNo, String sort) {
+        if(!OrderRepositoryImpl.isSortingAllowed(sort))
+            sort = "orderDate";
+
+        Pageable page = PageRequest.of(pageNo-1, 2, Sort.by(sort));
+        Page<Order> orders = orderRepository.findAll(page);
+        return orders.stream()
                 .map(OrderMapper.INSTANCE::toOrderShort)
                 .collect(Collectors.toList());
     }
 
-    // TODO: fix update issue
-    // Закоментований варіант - робочий
-    @Transactional
+    // TODO: fix update issue ( not using Factory )
     public ManagerOrderModel updateOrder(int id, OrderManagerDto order) {
         Order repoOrder = orderRepository.getOne(id);
-//        EntityManager entityManager1 = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-//            Order merged = entityManager1.merge(objectMapper.updateValue(repoOrder, order));
-            Order merged = orderRepository.save(objectMapper.updateValue(repoOrder, order));
+            Order merged = entityManager.merge(objectMapper.updateValue(repoOrder, order));
             return managerOrderAssembler
                     .toModel(OrderMapper.INSTANCE.toOrderManager(merged));
 
         } catch (JsonMappingException e) {
             log.error("Json mapping exception", e);
-            throw new RuntimeException("Json mapping exception");
+            throw new OrderUpdateException();
+        } finally {
+            entityManager.close();
         }
     }
 

@@ -3,17 +3,14 @@ package com.filiaiev.spring.mvc1.controller;
 import com.filiaiev.spring.mvc1.api.ManagerApi;
 import com.filiaiev.spring.mvc1.controller.model.ManagerOrderModel;
 import com.filiaiev.spring.mvc1.dto.client.ClientDto;
-import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
 import com.filiaiev.spring.mvc1.dto.order.OrderManagerDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
 import com.filiaiev.spring.mvc1.service.ManagerService;
 import com.filiaiev.spring.mvc1.util.CashWrapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,13 +19,13 @@ public class ManagerController implements ManagerApi {
     private final ManagerService managerService;
 
     @Override
-    public List<OrderShortDto> getOrders(@MatrixVariable(pathVar = "params", required = false) Map<String, String> params) {
+    public List<OrderShortDto> getOrders(int page, String sort) {
         // TODO: Filtering, sorting
-        return managerService.getOrderList();
+        return managerService.getOrderList(page, sort);
     }
 
     @Override
-    public ManagerOrderModel getOrder(@PathVariable int id) {
+    public ManagerOrderModel getOrder(int id) {
         return managerService.getOrderById(id);
     }
 
@@ -38,15 +35,12 @@ public class ManagerController implements ManagerApi {
     }
 
     @Override
-    public ClientDto updateClientCash(@PathVariable int id,
-                                      @Validated @RequestBody CashWrapper cash) {
+    public ClientDto updateClientCash(int id, CashWrapper cash) {
         return managerService.updateClientCash(id, cash.getCash());
     }
 
     @Override
-    public ManagerOrderModel updateOrder(@PathVariable int id,
-                                         @RequestBody
-                                         @Validated(OnOrderManagerUpdate.class) OrderManagerDto order) {
+    public ManagerOrderModel updateOrder(int id, OrderManagerDto order) {
         return managerService.updateOrder(id, order);
     }
 }
