@@ -14,7 +14,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class ManagerOrderAssembler extends RepresentationModelAssemblerSupport<OrderManagerDto, ManagerOrderModel> {
 
     private static final String GET_ORDER_REL = "get_order";
-    private static final String GET_ORDERS_REL = "get_orders";
     private static final String UPDATE_ORDER = "update_order";
 
     public ManagerOrderAssembler() {
@@ -28,10 +27,6 @@ public class ManagerOrderAssembler extends RepresentationModelAssemblerSupport<O
         Link getOrder = linkTo(methodOn(ManagerController.class)
                 .getOrder(entity.getId()))
                 .withRel(GET_ORDER_REL);
-
-//        Link getOrders = linkTo(methodOn(ManagerController.class)
-//                .getOrders(null))
-//                .withRel(GET_ORDERS_REL);
 
         Link updateOrder = linkTo(methodOn(ManagerController.class)
                 .updateOrder(entity.getId(), entity))

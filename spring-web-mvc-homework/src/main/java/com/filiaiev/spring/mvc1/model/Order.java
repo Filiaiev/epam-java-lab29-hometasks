@@ -30,7 +30,7 @@ public class Order {
 
     private Timestamp completeDate;
 
-    private BigDecimal cost;
+    private BigDecimal cost = new BigDecimal(0);
 
     private String comment;
 

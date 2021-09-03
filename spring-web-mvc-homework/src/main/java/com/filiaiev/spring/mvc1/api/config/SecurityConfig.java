@@ -1,6 +1,6 @@
 package com.filiaiev.spring.mvc1.api.config;
 
-import com.filiaiev.spring.mvc1.service.UserDetailsServiceImpl;
+import com.filiaiev.spring.mvc1.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/h2-console/**");
     }
 

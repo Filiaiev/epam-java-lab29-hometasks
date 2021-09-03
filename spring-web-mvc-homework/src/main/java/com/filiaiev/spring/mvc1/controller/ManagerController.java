@@ -1,11 +1,12 @@
 package com.filiaiev.spring.mvc1.controller;
 
 import com.filiaiev.spring.mvc1.api.ManagerApi;
+import com.filiaiev.spring.mvc1.controller.assembler.ManagerOrderAssembler;
 import com.filiaiev.spring.mvc1.controller.model.ManagerOrderModel;
 import com.filiaiev.spring.mvc1.dto.client.ClientDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderManagerDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
-import com.filiaiev.spring.mvc1.service.ManagerService;
+import com.filiaiev.spring.mvc1.service.impl.ManagerServiceImpl;
 import com.filiaiev.spring.mvc1.util.CashWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ManagerController implements ManagerApi {
 
-    private final ManagerService managerService;
+    private final ManagerServiceImpl managerService;
+
+    private final ManagerOrderAssembler assembler;
 
     @Override
     public List<OrderShortDto> getOrders(int page, String sort) {
@@ -26,7 +29,7 @@ public class ManagerController implements ManagerApi {
 
     @Override
     public ManagerOrderModel getOrder(int id) {
-        return managerService.getOrderById(id);
+        return assembler.toModel(managerService.getOrderById(id));
     }
 
     @Override
@@ -41,6 +44,6 @@ public class ManagerController implements ManagerApi {
 
     @Override
     public ManagerOrderModel updateOrder(int id, OrderManagerDto order) {
-        return managerService.updateOrder(id, order);
+        return assembler.toModel(managerService.updateOrder(id, order));
     }
 }

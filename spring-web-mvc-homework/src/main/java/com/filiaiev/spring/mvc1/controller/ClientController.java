@@ -3,12 +3,10 @@ package com.filiaiev.spring.mvc1.controller;
 import com.filiaiev.spring.mvc1.controller.assembler.ClientOrderAssembler;
 import com.filiaiev.spring.mvc1.controller.model.ClientOrderModel;
 import com.filiaiev.spring.mvc1.dto.client.ClientDto;
-import com.filiaiev.spring.mvc1.dto.group.OnClientRegister;
 import com.filiaiev.spring.mvc1.dto.order.OrderClientDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
 import com.filiaiev.spring.mvc1.dto.user.UserRegisterDto;
-import com.filiaiev.spring.mvc1.model.Order;
-import com.filiaiev.spring.mvc1.service.ClientService;
+import com.filiaiev.spring.mvc1.service.impl.ClientServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClientController {
 
-    private final ClientService clientService;
+    private final ClientServiceImpl clientService;
     private final ClientOrderAssembler clientOrderAssembler;
 
     @PostMapping
