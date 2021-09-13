@@ -30,7 +30,7 @@ public class ClientServiceImpl {
     private final ClientRepository clientRepository;
     private final UserRepository userRepository;
 
-    public OrderClientDto getOrder(int id) {
+    public OrderClientDto getOrder(long id) {
         Order order = orderRepository.findById(id).orElseThrow(RuntimeException::new);
         return OrderMapper.INSTANCE.toOrderClient(order);
     }
@@ -47,7 +47,7 @@ public class ClientServiceImpl {
         return OrderMapper.INSTANCE.toOrderClient(saved);
     }
 
-    public OrderClientDto updateOrderComment(int id, String comment) {
+    public OrderClientDto updateOrderComment(long id, String comment) {
         Order toUpdate = orderRepository.getOne(id);
         toUpdate.setComment(comment);
         orderRepository.save(toUpdate);

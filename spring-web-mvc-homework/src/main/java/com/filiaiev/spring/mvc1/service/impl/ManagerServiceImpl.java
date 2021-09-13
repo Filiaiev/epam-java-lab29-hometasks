@@ -63,7 +63,7 @@ public class ManagerServiceImpl {
         this.objectMapper = objectMapper;
     }
 
-    public OrderManagerDto getOrderById(int id) {
+    public OrderManagerDto getOrderById(long id) {
         return OrderMapper.INSTANCE.toOrderManager(orderRepository.getOne(id));
     }
 
@@ -80,7 +80,7 @@ public class ManagerServiceImpl {
     }
 
     // TODO: fix update issue ( not using Factory )
-    public OrderManagerDto updateOrder(int id, OrderManagerDto order) {
+    public OrderManagerDto updateOrder(long id, OrderManagerDto order) {
         Order repoOrder = orderRepository.getOne(id);
 
         try {
@@ -93,7 +93,7 @@ public class ManagerServiceImpl {
         }
     }
 
-    public ClientDto updateClientCash(int id, BigDecimal cash) {
+    public ClientDto updateClientCash(long id, BigDecimal cash) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(UserNotFoundException::new);
 
@@ -105,7 +105,7 @@ public class ManagerServiceImpl {
         return ClientMapper.INSTANCE.toClientDto(client);
     }
 
-    public ClientDto getClientById(int id) {
+    public ClientDto getClientById(long id) {
         return ClientMapper.INSTANCE.toClientDto(clientRepository.getOne(id));
     }
 }

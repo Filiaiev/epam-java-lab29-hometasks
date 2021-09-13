@@ -13,13 +13,14 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private long id;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private Client client;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-    @OneToOne
+    // After this it`s working
+    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, fetch = FetchType.EAGER)
+//    @OneToOne
     @JoinColumn(name = "worker_id")
     private Employee employee;
 

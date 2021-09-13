@@ -1,5 +1,6 @@
 package com.filiaiev.spring.mvc1.util.mapper;
 
+import com.filiaiev.spring.mvc1.dto.order.CreatedOrderDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderClientDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderManagerDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
@@ -23,4 +24,6 @@ public interface OrderMapper {
     OrderManagerDto toOrderManager(Order order);
 
     OrderClientDto toOrderClient(Order order);
+
+    CreatedOrderDto toCreatedOrder(Order order);
 }

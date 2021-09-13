@@ -14,6 +14,7 @@ import com.filiaiev.spring.mvc1.util.mapper.OrderMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -115,7 +116,7 @@ public class ManagerServiceTest {
         BigDecimal oldCost = util.getOrders().get(0).getCost();
         managerService.setObjectMapper(new ObjectMapper());
 
-        when(orderRepository.getOne(anyInt()))
+        when(orderRepository.getOne(ArgumentMatchers.anyLong()))
                 .thenReturn(util.getOrders().get(0));
 
         OrderManagerDto dto = new OrderManagerDto();

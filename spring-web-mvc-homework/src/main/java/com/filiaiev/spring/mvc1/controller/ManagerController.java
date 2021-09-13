@@ -7,7 +7,7 @@ import com.filiaiev.spring.mvc1.dto.client.ClientDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderManagerDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
 import com.filiaiev.spring.mvc1.service.impl.ManagerServiceImpl;
-import com.filiaiev.spring.mvc1.util.CashWrapper;
+import com.filiaiev.spring.mvc1.util.wrapper.CashWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 

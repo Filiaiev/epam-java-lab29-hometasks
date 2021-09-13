@@ -27,10 +27,10 @@ public class TestConfig {
         return new LinkDiscoverers(SimplePluginRegistry.create(plugins));
     }
 
-    @Bean
-    public UserDetailsServiceImpl getUserDetailsService() {
-        return new UserDetailsServiceImpl(userRepository);
-    }
+//    @Bean
+//    public UserDetailsServiceImpl getUserDetailsService() {
+//        return new UserDetailsServiceImpl(userRepository);
+//    }
 
     @Bean
     public ManagerOrderAssembler getManagerOrderAssembler() {

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
 
-public interface ClientRepository extends JpaRepository<Client, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
+
+    Client getClientByUser_Login(String login);
 
 }

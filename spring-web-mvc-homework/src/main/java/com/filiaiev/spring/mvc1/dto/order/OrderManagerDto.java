@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderManagerDto {
+public class OrderManagerDto implements OrderDto {
 
     @Null(message = "{update.order.fail.access.id}",
             groups = {OnOrderManagerUpdate.class})

@@ -19,8 +19,8 @@
 
 -- Clients init
 
-    INSERT INTO clients(user_id)
-    VALUES (1), (2);
+    INSERT INTO clients(user_id, cash)
+    VALUES (1, 5000), (2, 3000);
 
 -- Employees init
 
@@ -40,7 +40,7 @@
                               cost, comment, description)
     VALUES
     (1, 1, NULL, 11500, NULL, 'Test order'),
-    (1, 2, NULL, NULL, NULL, '3 order');
+    (1, 2, NULL, 300, NULL, '3 order');
 
     --- Pure client creation
 

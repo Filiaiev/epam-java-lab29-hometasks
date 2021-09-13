@@ -1,4 +1,4 @@
-package com.filiaiev.spring.mvc1.util;
+package com.filiaiev.spring.mvc1.util.wrapper;
 
 import lombok.Data;
 

@@ -5,7 +5,7 @@ import com.filiaiev.spring.mvc1.dto.client.ClientDto;
 import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
 import com.filiaiev.spring.mvc1.dto.order.OrderManagerDto;
 import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
-import com.filiaiev.spring.mvc1.util.CashWrapper;
+import com.filiaiev.spring.mvc1.util.wrapper.CashWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Api(tags = "Manager API")
 //@RequestMapping("/api/v1/manager")

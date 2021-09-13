@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderClientDto {
+public class OrderClientDto implements OrderDto {
 
     @Null(message = "{create.client.order.fail.access}",
             groups = {OnClientOrderCreate.class})
