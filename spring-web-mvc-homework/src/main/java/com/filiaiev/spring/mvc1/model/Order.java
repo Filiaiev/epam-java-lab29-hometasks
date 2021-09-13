@@ -19,7 +19,7 @@ public class Order {
     private Client client;
 
     // After this it`s working
-    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
 //    @OneToOne
     @JoinColumn(name = "worker_id")
     private Employee employee;

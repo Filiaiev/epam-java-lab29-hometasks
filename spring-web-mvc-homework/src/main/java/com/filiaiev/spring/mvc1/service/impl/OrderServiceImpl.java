@@ -5,28 +5,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.filiaiev.spring.mvc1.dto.order.OrderManagerDto;
 import com.filiaiev.spring.mvc1.exception.order.OrderNotFoundException;
 import com.filiaiev.spring.mvc1.model.Client;
-import com.filiaiev.spring.mvc1.model.Employee;
 import com.filiaiev.spring.mvc1.model.Order;
 import com.filiaiev.spring.mvc1.model.OrderStatus;
 import com.filiaiev.spring.mvc1.repository.ClientRepository;
 import com.filiaiev.spring.mvc1.repository.OrderRepository;
 import com.filiaiev.spring.mvc1.service.OrderService;
-import com.filiaiev.spring.mvc1.util.mapper.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -71,8 +63,7 @@ public class OrderServiceImpl implements OrderService {
             log.error("Update order #{} fails due to: {}", id, e.getMessage(), e);
             return toUpdate;
         }
-        updated = orderRepository.save(updated);
-        System.out.println("REFRESH -------------------");
+        updated = orderRepository.saveAndFlush(updated);
         entityManager.refresh(updated);
         return updated;
     }
