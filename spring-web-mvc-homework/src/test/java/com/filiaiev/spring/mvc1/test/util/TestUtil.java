@@ -75,7 +75,7 @@ public class TestUtil {
     private void initClients() {
         Client client1 = new Client();
 
-        client1.setId(1);
+        client1.setId(1L);
         client1.setUser(users.get(0));
         client1.setCash(new BigDecimal(1200));
 
@@ -86,7 +86,7 @@ public class TestUtil {
     private void initEmployees() {
         Employee employee1 = new Employee();
 
-        employee1.setId(1);
+        employee1.setId(1L);
         employee1.setUser(users.get(0));
 
         employees = new ArrayList<>();

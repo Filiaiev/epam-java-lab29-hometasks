@@ -1,4 +1,4 @@
-package com.filiaiev.spring.mvc1.validation.annotation;
+package com.filiaiev.spring.mvc1.validation.constraint;
 
 import com.filiaiev.spring.mvc1.validation.UniqueUserValidator;
 
@@ -12,8 +12,8 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = UniqueUserValidator.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueUserContraint {
-    String message() default "User with such login or email exists";
+public @interface UniqueUser {
+    String message() default "User with such login or email already exists";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

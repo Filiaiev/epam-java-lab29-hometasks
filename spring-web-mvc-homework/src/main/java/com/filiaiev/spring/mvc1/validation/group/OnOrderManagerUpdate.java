@@ -1,4 +1,4 @@
-package com.filiaiev.spring.mvc1.dto.group;
+package com.filiaiev.spring.mvc1.validation.group;
 
 import javax.validation.groups.Default;
 

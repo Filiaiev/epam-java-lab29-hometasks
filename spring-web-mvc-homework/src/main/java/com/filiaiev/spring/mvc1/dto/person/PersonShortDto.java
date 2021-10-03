@@ -1,6 +1,6 @@
 package com.filiaiev.spring.mvc1.dto.person;
 
-import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
+import com.filiaiev.spring.mvc1.validation.group.OnOrderManagerUpdate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

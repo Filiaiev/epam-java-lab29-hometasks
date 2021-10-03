@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 @Slf4j
 public class Messages {
 
+    private Messages() {}
+
     @SneakyThrows
     public static String getMessage(String messageKey, Locale locale) {
         log.debug("Getting message key '{}' with locale {}", messageKey, locale);

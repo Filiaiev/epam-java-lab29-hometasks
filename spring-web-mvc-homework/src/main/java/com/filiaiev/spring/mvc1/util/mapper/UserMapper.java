@@ -1,5 +1,6 @@
 package com.filiaiev.spring.mvc1.util.mapper;
 
+import com.filiaiev.spring.mvc1.dto.user.UserProfileDto;
 import com.filiaiev.spring.mvc1.dto.user.UserRegisterDto;
 import com.filiaiev.spring.mvc1.model.User;
 import org.mapstruct.Mapper;
@@ -10,7 +11,9 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    User toUser(UserRegisterDto dto);
+    User toUserFromUserRegister(UserRegisterDto dto);
 
     UserRegisterDto toUserRegister(User user);
+
+    UserProfileDto toUserProfile(User user);
 }

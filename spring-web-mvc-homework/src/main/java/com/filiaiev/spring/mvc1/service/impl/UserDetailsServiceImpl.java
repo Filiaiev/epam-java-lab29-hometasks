@@ -29,9 +29,6 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
-//    private final BeanFactory beanFactory;
-    private final DefaultListableBeanFactory beanFactory;
-    private final ApplicationContext applicationContext;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {

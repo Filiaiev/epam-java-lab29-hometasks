@@ -3,7 +3,7 @@ package com.filiaiev.spring.mvc1.dto.order;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.filiaiev.spring.mvc1.dto.employee.EmployeeShortDto;
-import com.filiaiev.spring.mvc1.dto.group.OnClientOrderCreate;
+import com.filiaiev.spring.mvc1.validation.group.OnClientOrderCreate;
 import com.filiaiev.spring.mvc1.model.OrderStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,11 +16,11 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderClientDto implements OrderDto {
+public class OrderClientDto extends OrderDto {
 
     @Null(message = "{create.client.order.fail.access}",
             groups = {OnClientOrderCreate.class})
-    private Integer id;
+    private Long id;
 
     @Null(message = "{create.client.order.fail.access}",
             groups = {OnClientOrderCreate.class})

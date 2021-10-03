@@ -1,7 +1,6 @@
-package com.filiaiev.spring.mvc1.validation.annotation;
+package com.filiaiev.spring.mvc1.validation.constraint;
 
-import com.filiaiev.spring.mvc1.validation.UniqueUserValidator;
-import com.filiaiev.spring.mvc1.validation.UserPasswordValidator;
+import com.filiaiev.spring.mvc1.validation.RegisterPasswordsShouldMatchValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,11 +9,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = UserPasswordValidator.class)
+@Constraint(validatedBy = RegisterPasswordsShouldMatchValidator.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UserPasswordConstraint {
-    String message() default "Passwords don`t match";
+public @interface PasswordMatcher {
+    String message() default "Passwords should match";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

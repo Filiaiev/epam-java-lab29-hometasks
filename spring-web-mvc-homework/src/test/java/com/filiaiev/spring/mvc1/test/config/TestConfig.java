@@ -1,8 +1,6 @@
 package com.filiaiev.spring.mvc1.test.config;
 
-import com.filiaiev.spring.mvc1.controller.assembler.ManagerOrderAssembler;
 import com.filiaiev.spring.mvc1.repository.UserRepository;
-import com.filiaiev.spring.mvc1.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +30,8 @@ public class TestConfig {
 //        return new UserDetailsServiceImpl(userRepository);
 //    }
 
-    @Bean
-    public ManagerOrderAssembler getManagerOrderAssembler() {
-        return new ManagerOrderAssembler();
-    }
+//    @Bean
+//    public ManagerOrderAssembler getManagerOrderAssembler() {
+//        return new ManagerOrderAssembler();
+//    }
 }

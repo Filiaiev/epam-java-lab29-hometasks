@@ -1,7 +1,7 @@
 package com.filiaiev.spring.mvc1.dto.person;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.filiaiev.spring.mvc1.dto.group.OnClientRegister;
+import com.filiaiev.spring.mvc1.validation.group.OnClientRegister;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

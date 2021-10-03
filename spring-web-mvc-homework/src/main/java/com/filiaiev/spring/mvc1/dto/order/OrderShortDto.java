@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
-public class OrderShortDto implements OrderDto {
+public class OrderShortDto extends OrderDto {
 
     private int id;
     private Timestamp orderDate;

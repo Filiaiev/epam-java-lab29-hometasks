@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
-public class CreatedOrderDto implements OrderDto {
+public class CreatedOrderDto extends OrderDto {
 
     private long id;
     private String description;

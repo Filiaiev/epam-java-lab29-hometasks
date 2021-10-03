@@ -1,8 +1,8 @@
 package com.filiaiev.spring.mvc1.dto.user;
 
 import com.filiaiev.spring.mvc1.dto.person.PersonDto;
-import com.filiaiev.spring.mvc1.validation.annotation.UniqueUserContraint;
-import com.filiaiev.spring.mvc1.validation.annotation.UserPasswordConstraint;
+import com.filiaiev.spring.mvc1.validation.constraint.UniqueUser;
+import com.filiaiev.spring.mvc1.validation.constraint.PasswordMatcher;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -11,9 +11,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@UniqueUserContraint
-@UserPasswordConstraint
-public class UserRegisterDto {
+@UniqueUser
+@PasswordMatcher
+public class UserRegisterDto extends UserDto {
 
     @NotBlank(message = "{register.fail.empty.email}")
     @Email(message = "{register.fail.pattern.email}")

@@ -1,8 +1,7 @@
 package com.filiaiev.spring.mvc1.dto.employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
+import com.filiaiev.spring.mvc1.validation.group.OnOrderManagerUpdate;
 import com.filiaiev.spring.mvc1.dto.user.UserShortDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.validation.constraints.Null;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EmployeeShortDto {
 
-    private int id;
+    private Long id;
 
     @Null(message = "{update.fail.manager.user}",
             groups = {OnOrderManagerUpdate.class})

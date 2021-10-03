@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.filiaiev.spring.mvc1.dto.client.ClientShortDto;
 import com.filiaiev.spring.mvc1.dto.employee.EmployeeShortDto;
-import com.filiaiev.spring.mvc1.dto.group.OnOrderManagerUpdate;
+import com.filiaiev.spring.mvc1.validation.group.OnOrderManagerUpdate;
 import com.filiaiev.spring.mvc1.model.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderManagerDto implements OrderDto {
+public class OrderManagerDto extends OrderDto {
 
     @Null(message = "{update.order.fail.access.id}",
             groups = {OnOrderManagerUpdate.class})

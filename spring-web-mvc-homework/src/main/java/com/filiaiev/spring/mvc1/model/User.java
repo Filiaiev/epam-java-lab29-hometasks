@@ -21,7 +21,7 @@ public class User {
     @Column(length = 64, nullable = false)
     private String password;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Person person;
 
     @Enumerated(value = EnumType.STRING)

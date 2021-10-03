@@ -1,74 +1,54 @@
 package com.filiaiev.spring.mvc1.service.impl;
 
 import com.filiaiev.spring.mvc1.dto.client.ClientDto;
-import com.filiaiev.spring.mvc1.dto.order.OrderClientDto;
-import com.filiaiev.spring.mvc1.dto.order.OrderShortDto;
-import com.filiaiev.spring.mvc1.dto.user.UserRegisterDto;
-import com.filiaiev.spring.mvc1.exception.UserRegisterException;
+import com.filiaiev.spring.mvc1.exception.repository.RecordNotFoundException;
 import com.filiaiev.spring.mvc1.model.Client;
-import com.filiaiev.spring.mvc1.model.Order;
-import com.filiaiev.spring.mvc1.model.User;
+import com.filiaiev.spring.mvc1.model.Role;
+import com.filiaiev.spring.mvc1.model.UserDetailsImpl;
 import com.filiaiev.spring.mvc1.repository.ClientRepository;
-import com.filiaiev.spring.mvc1.repository.OrderRepository;
-import com.filiaiev.spring.mvc1.repository.UserRepository;
+import com.filiaiev.spring.mvc1.service.ClientService;
+import com.filiaiev.spring.mvc1.util.SecurityUtil;
 import com.filiaiev.spring.mvc1.util.mapper.ClientMapper;
-import com.filiaiev.spring.mvc1.util.mapper.OrderMapper;
-import com.filiaiev.spring.mvc1.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ClientServiceImpl {
+@Transactional
+public class ClientServiceImpl implements ClientService {
 
-    private final OrderRepository orderRepository;
     private final ClientRepository clientRepository;
-    private final UserRepository userRepository;
 
-    public OrderClientDto getOrder(long id) {
-        Order order = orderRepository.findById(id).orElseThrow(RuntimeException::new);
-        return OrderMapper.INSTANCE.toOrderClient(order);
+    @Override
+    public ClientDto getClient(Long id) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(RecordNotFoundException::new);
+
+        ClientDto clientDto = ClientMapper.INSTANCE.toClientDto(client);
+        UserDetailsImpl userDetails =
+                SecurityUtil.getUserDetails(SecurityContextHolder.getContext().getAuthentication());
+
+        if(userDetails.getRole() == Role.ROLE_MANAGER)
+            return clientDto;
+
+        if(!userDetails.getRoleEntityIdMap().get(userDetails.getRole()).equals(id))
+            throw new RecordNotFoundException();
+
+        return clientDto;
     }
 
-    public List<OrderShortDto> getOrderList() {
-        List<Order> orders = orderRepository.findAll();
-        return orders.stream()
-                .map(OrderMapper.INSTANCE::toOrderShort)
-                .collect(Collectors.toList());
-    }
-
-    public OrderClientDto createOrder(OrderClientDto order) {
-        Order saved = orderRepository.save(OrderMapper.INSTANCE.toOrder(order));
-        return OrderMapper.INSTANCE.toOrderClient(saved);
-    }
-
-    public OrderClientDto updateOrderComment(long id, String comment) {
-        Order toUpdate = orderRepository.getOne(id);
-        toUpdate.setComment(comment);
-        orderRepository.save(toUpdate);
-
-        return OrderMapper.INSTANCE.toOrderClient(toUpdate);
-    }
-
-    public ClientDto registerClient(UserRegisterDto user) {
-        User registerUser = UserMapper.INSTANCE.toUser(user);
-
-        log.info("Creating client, login = {}, email = {}",
-                user.getLogin(), user.getEmail());
-
-        registerUser = userRepository.save(registerUser);
-
-        Client client = new Client();
-        client.setUser(registerUser);
-
-        client = clientRepository.save(client);
-
-        log.info("Client has been created, id = {}", client.getId());
+    @Override
+    public ClientDto addClientCash(Long id, BigDecimal cash) {
+        Client client = clientRepository.findById(id).orElseThrow(RecordNotFoundException::new);
+        BigDecimal currentTotalCash = client.getCash().add(cash);
+        log.info("Client`s #{} cash changed from {} to {}", client.getId(), client.getCash(), currentTotalCash);
+        client.setCash(currentTotalCash);
         return ClientMapper.INSTANCE.toClientDto(client);
     }
 }
